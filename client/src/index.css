@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FF944D;       
+  --color-primary-dark: #E86100;  
+  --color-accent-cyan: #FF3366;   
+  --color-accent-pink: #14B8A6;   
+  
+  --color-white: var(--tw-white);
+  --color-slate-100: var(--tw-white);
+  --color-slate-900: var(--bg-main);
+
+  /* Add our new classy font */
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+  
+  --animate-gradient-shift: gradient-shift 3s ease infinite;
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-mesh: mesh 15s ease infinite alternate;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+@keyframes mesh {
+  0% { transform: translateX(-10%) translateY(-10%) rotate(0deg); }
+  100% { transform: translateX(10%) translateY(10%) rotate(10deg); }
+}
+
+@layer base {
+  :root {
+    --bg-main: #FAF9F9;
+    --tw-white: #0F172A;
+    
+    --glass-bg: rgba(255, 255, 255, 0.5);
+    --glass-panel-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(15, 23, 42, 0.05);
+    --glass-shadow: rgba(15, 23, 42, 0.04);
+    
+    --orb-primary: rgba(255, 148, 77, 0.2);
+    --orb-secondary: rgba(255, 51, 102, 0.15);
+    --orb-accent: rgba(20, 184, 166, 0.1);
+    
+    --scroll-thumb: rgba(15, 23, 42, 0.15);
+    --scroll-thumb-hover: rgba(15, 23, 42, 0.3);
+  }
+
+  .dark {
+    --bg-main: #050505; /* Deeper black for ultra-premium look */
+    --tw-white: #FFFFFF;
+    
+    --glass-bg: rgba(255, 255, 255, 0.02); 
+    --glass-panel-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.06);
+    --glass-shadow: rgba(0, 0, 0, 0.6);
+    
+    --orb-primary: rgba(255, 148, 77, 0.25);
+    --orb-secondary: rgba(255, 51, 102, 0.2);
+    --orb-accent: rgba(20, 184, 166, 0.15);
+    
+    --scroll-thumb: rgba(255, 255, 255, 0.1);
+    --scroll-thumb-hover: rgba(255, 255, 255, 0.2);
+  }
+
+  body {
+    @apply min-h-screen font-sans antialiased;
+    background-color: var(--bg-main);
+    color: var(--tw-white);
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+}
+
+@layer components {
+  /* Dynamic Mesh Background container */
+  .mesh-bg {
+    @apply fixed inset-0 pointer-events-none z-[-1] overflow-hidden;
+    background-color: var(--bg-main);
+  }
+
+  .mesh-blob-1 {
+    @apply absolute w-[80vw] h-[80vw] rounded-full mix-blend-screen opacity-60 filter blur-[100px];
+    background: radial-gradient(circle, var(--orb-primary) 0%, transparent 60%);
+    top: -20%; left: -10%;
+    animation: mesh 20s ease-in-out infinite alternate;
+  }
+  
+  .mesh-blob-2 {
+    @apply absolute w-[60vw] h-[60vw] rounded-full mix-blend-screen opacity-50 filter blur-[80px];
+    background: radial-gradient(circle, var(--orb-secondary) 0%, transparent 60%);
+    bottom: -10%; right: -10%;
+    animation: mesh 25s ease-in-out infinite alternate-reverse;
+  }
+
+  .mesh-blob-3 {
+    @apply absolute w-[50vw] h-[50vw] rounded-full mix-blend-screen opacity-40 filter blur-[60px];
+    background: radial-gradient(circle, var(--orb-accent) 0%, transparent 60%);
+    top: 30%; left: 40%;
+    animation: mesh 18s ease-in-out infinite alternate;
+  }
+
+  .noise-overlay {
+    @apply fixed inset-0 pointer-events-none z-[-1] opacity-[0.03] dark:opacity-[0.05];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  .bg-gradient-to-r,
+  .bg-gradient-to-tr,
+  .from-primary {
+    color: #ffffff !important;
+  }
+
+  .text-transparent.bg-gradient-to-r {
+    color: transparent !important;
+  }
+
+  .glass-morphism {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 20px -4px var(--glass-shadow);
+    transition: all 0.3s ease;
+  }
+
+  .liquid-button {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent-cyan) 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #ffffff !important; 
+    box-shadow: 
+      0 8px 24px -6px rgba(255, 51, 102, 0.4),
+      inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    transition: all 0.3s var(--ease-apple);
+  }
+
+  .liquid-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s var(--ease-apple);
+  }
+
+  .liquid-button:hover::before {
+    transform: translateX(100%);
+  }
+
+  .liquid-button:hover {
+    box-shadow: 
+      0 12px 30px -6px rgba(255, 51, 102, 0.6),
+      inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .liquid-button:active {
+    transform: scale(0.96);
+  }
+  
+  .glass-panel {
+    background: var(--glass-panel-bg);
+    backdrop-filter: blur(32px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1.5rem;
+    box-shadow: 
+      0 20px 40px -10px var(--glass-shadow),
+      inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .glass-input {
+    background: var(--glass-panel-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--tw-white);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.02);
+  }
+
+  .glass-input::placeholder {
+    opacity: 0.4;
+  }
+
+  .glass-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(255, 148, 77, 0.15);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+}

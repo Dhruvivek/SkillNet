@@ -1,0 +1,27 @@
+﻿src/pages/LandingPage.tsx(4,50): error TS6133: 'Users' is declared but its value is never read.
+src/pages/LandingPage.tsx(163,24): error TS2322: Type '{ animate: (i: number) => { y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'animate' is incompatible with index signature.
+    Type '(i: number) => { y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type 'Variant'.
+      Type '(i: number) => { y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type 'TargetResolver'.
+        Type '{ y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type 'string | TargetAndTransition'.
+          Type '{ y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type 'TargetAndTransition'.
+            Type '{ y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues$1 | undefined; }'.
+              Types of property 'transition' are incompatible.
+                Type '{ duration: number; repeat: number; ease: string; delay: number; }' is not assignable to type 'Transition<any> | undefined'.
+                  Type '{ duration: number; repeat: number; ease: string; delay: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                    Type '{ duration: number; repeat: number; ease: string; delay: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                      Types of property 'ease' are incompatible.
+                        Type 'string' is not assignable to type 'Easing | Easing[] | undefined'.
+src/pages/LandingPage.tsx(174,24): error TS2322: Type '{ animate: (i: number) => { y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'animate' is incompatible with index signature.
+    Type '(i: number) => { y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type 'Variant'.
+      Type '(i: number) => { y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type 'TargetResolver'.
+        Type '{ y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type 'string | TargetAndTransition'.
+          Type '{ y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type 'TargetAndTransition'.
+            Type '{ y: number[]; rotate: number[]; transition: { duration: number; repeat: number; ease: string; delay: number; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues$1 | undefined; }'.
+              Types of property 'transition' are incompatible.
+                Type '{ duration: number; repeat: number; ease: string; delay: number; }' is not assignable to type 'Transition<any> | undefined'.
+                  Type '{ duration: number; repeat: number; ease: string; delay: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                    Type '{ duration: number; repeat: number; ease: string; delay: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                      Types of property 'ease' are incompatible.
+                        Type 'string' is not assignable to type 'Easing | Easing[] | undefined'.

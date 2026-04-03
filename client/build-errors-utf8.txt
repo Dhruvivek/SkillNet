@@ -1,0 +1,75 @@
+﻿src/components/ui/GlassCard.tsx(2,18): error TS1484: 'HTMLMotionProps' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/ui/LiquidButton.tsx(2,18): error TS1484: 'HTMLMotionProps' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/DashboardPage.tsx(32,19): error TS2322: Type '{ hidden: { opacity: number; y: number; }; show: { opacity: number; y: number; transition: { ease: number[]; duration: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'show' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues$1 | undefined; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ ease: number[]; duration: number; }' is not assignable to type 'Transition<any> | undefined'.
+              Type '{ ease: number[]; duration: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ ease: number[]; duration: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'number[]' is not assignable to type 'Easing | Easing[] | undefined'.
+                      Type 'number[]' is not assignable to type 'EasingFunction | Easing[]'.
+                        Type 'number[]' is not assignable to type 'Easing[]'.
+                          Type 'number' is not assignable to type 'Easing'.
+src/pages/DashboardPage.tsx(45,19): error TS2322: Type '{ hidden: { opacity: number; y: number; }; show: { opacity: number; y: number; transition: { ease: number[]; duration: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'show' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues$1 | undefined; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ ease: number[]; duration: number; }' is not assignable to type 'Transition<any> | undefined'.
+              Type '{ ease: number[]; duration: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ ease: number[]; duration: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'number[]' is not assignable to type 'Easing | Easing[] | undefined'.
+                      Type 'number[]' is not assignable to type 'EasingFunction | Easing[]'.
+                        Type 'number[]' is not assignable to type 'Easing[]'.
+                          Type 'number' is not assignable to type 'Easing'.
+src/pages/DashboardPage.tsx(88,28): error TS2322: Type '{ hidden: { opacity: number; y: number; }; show: { opacity: number; y: number; transition: { ease: number[]; duration: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'show' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues$1 | undefined; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ ease: number[]; duration: number; }' is not assignable to type 'Transition<any> | undefined'.
+              Type '{ ease: number[]; duration: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ ease: number[]; duration: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'number[]' is not assignable to type 'Easing | Easing[] | undefined'.
+                      Type 'number[]' is not assignable to type 'EasingFunction | Easing[]'.
+                        Type 'number[]' is not assignable to type 'Easing[]'.
+                          Type 'number' is not assignable to type 'Easing'.
+src/pages/DashboardPage.tsx(114,27): error TS2322: Type '{ hidden: { opacity: number; y: number; }; show: { opacity: number; y: number; transition: { ease: number[]; duration: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'show' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues$1 | undefined; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ ease: number[]; duration: number; }' is not assignable to type 'Transition<any> | undefined'.
+              Type '{ ease: number[]; duration: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ ease: number[]; duration: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'number[]' is not assignable to type 'Easing | Easing[] | undefined'.
+                      Type 'number[]' is not assignable to type 'EasingFunction | Easing[]'.
+                        Type 'number[]' is not assignable to type 'Easing[]'.
+                          Type 'number' is not assignable to type 'Easing'.
+src/pages/DashboardPage.tsx(141,27): error TS2322: Type '{ hidden: { opacity: number; y: number; }; show: { opacity: number; y: number; transition: { ease: number[]; duration: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'show' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { ease: number[]; duration: number; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues$1 | undefined; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ ease: number[]; duration: number; }' is not assignable to type 'Transition<any> | undefined'.
+              Type '{ ease: number[]; duration: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ ease: number[]; duration: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'number[]' is not assignable to type 'Easing | Easing[] | undefined'.
+                      Type 'number[]' is not assignable to type 'EasingFunction | Easing[]'.
+                        Type 'number[]' is not assignable to type 'Easing[]'.
+                          Type 'number' is not assignable to type 'Easing'.
+src/pages/ExplorePage.tsx(6,1): error TS6133: 'SkillTag' is declared but its value is never read.
+src/pages/LandingPage.tsx(17,37): error TS6133: 'i' is declared but its value is never read.
+src/pages/TeamFinderPage.tsx(4,10): error TS6133: 'Users' is declared but its value is never read.

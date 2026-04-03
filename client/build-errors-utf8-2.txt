@@ -1,0 +1,14 @@
+﻿src/components/ui/GlassCard.tsx(14,12): error TS6133: 'isHovering' is declared but its value is never read.
+src/pages/DashboardPage.tsx(7,24): error TS6133: 'MessageSquare' is declared but its value is never read.
+src/pages/DashboardPage.tsx(7,39): error TS6133: 'Zap' is declared but its value is never read.
+src/pages/LandingPage.tsx(54,19): error TS2322: Type '{ hidden: { opacity: number; y: number; rotateX: number; }; show: { opacity: number; y: number; rotateX: number; transition: { type: string; damping: number; stiffness: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'show' is incompatible with index signature.
+    Type '{ opacity: number; y: number; rotateX: number; transition: { type: string; damping: number; stiffness: number; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; rotateX: number; transition: { type: string; damping: number; stiffness: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; rotateX: number; transition: { type: string; damping: number; stiffness: number; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues$1 | undefined; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ type: string; damping: number; stiffness: number; }' is not assignable to type 'Transition<any> | undefined'.
+              Type '{ type: string; damping: number; stiffness: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ type: string; damping: number; stiffness: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'type' are incompatible.
+                    Type 'string' is not assignable to type 'AnimationGeneratorType | undefined'.
