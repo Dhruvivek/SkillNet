@@ -5,15 +5,38 @@ import { GlassCard } from '../components/ui/GlassCard';
 import { LiquidButton } from '../components/ui/LiquidButton';
 import { SkillTag } from '../components/ui/SkillTag';
 import { ALL_SKILLS } from '../data/mock';
+import { userAPI, setUser, getUser } from '../lib/api';
 
 const OnboardingPage: React.FC = () => {
   const [selected, setSelected] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const toggleSkill = (skill: string) => {
     setSelected(prev => 
       prev.includes(skill) ? prev.filter(s => s !== skill) : [...prev, skill]
     );
+  };
+
+  const handleContinue = async () => {
+    if (selected.length === 0) return;
+    setIsLoading(true);
+    
+    try {
+      const response = await userAPI.updateProfile({ skills: selected });
+      // Update stored user data
+      const currentUser = getUser();
+      if (currentUser) {
+        setUser({ ...currentUser, skills: selected });
+      }
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('Failed to save skills:', err);
+      // Still navigate — skills can be set later
+      navigate('/dashboard');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -65,10 +88,10 @@ const OnboardingPage: React.FC = () => {
            <LiquidButton 
              size="lg" 
              className="w-[300px]"
-             disabled={selected.length === 0}
-             onClick={() => navigate('/dashboard')}
+             disabled={selected.length === 0 || isLoading}
+             onClick={handleContinue}
            >
-             {selected.length === 0 ? "Select at least one skill" : `Continue with ${selected.length} skills`}
+             {isLoading ? 'Saving...' : selected.length === 0 ? "Select at least one skill" : `Continue with ${selected.length} skills`}
            </LiquidButton>
          </motion.div>
       </div>

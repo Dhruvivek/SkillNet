@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { GlassInput } from '../components/ui/GlassInput';
 import { LiquidButton } from '../components/ui/LiquidButton';
 import { Code2, Globe, Hash, Mail, Lock, User } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { authAPI, setToken, setUser } from '../lib/api';
 
 const AuthPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
   
   // Controlled inputs
   const [name, setName] = useState('');
@@ -17,10 +19,20 @@ const AuthPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Show success message if redirected from OTP page
+  React.useEffect(() => {
+    if ((location.state as any)?.verified) {
+      setSuccessMsg('Email verified successfully! You can now log in.');
+      setIsLogin(true);
+    }
+  }, [location.state]);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSuccessMsg(null);
     setIsLoading(true);
 
     // Basic Validation
@@ -31,28 +43,59 @@ const AuthPage: React.FC = () => {
     }
 
     if (!isLogin) {
-      if (!email.endsWith('.edu')) {
-         setError("You must use a valid .edu college email to join.");
+      // Registration: validate @niet.co.in domain
+      if (!email.endsWith('@niet.co.in')) {
+         setError("You must use your @niet.co.in college email to join.");
          setIsLoading(false);
          return;
+      }
+      if (password.length < 6) {
+        setError("Password must be at least 6 characters.");
+        setIsLoading(false);
+        return;
       }
       if (password !== confirmPassword) {
          setError("Passwords do not match.");
          setIsLoading(false);
          return;
       }
-    }
 
-    // Mock API Delay
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate('/dashboard');
-    }, 1500);
+      // Register API call
+      try {
+        await authAPI.register(name, email, password);
+        // Navigate to OTP page with email
+        navigate('/verify-otp', { state: { email } });
+      } catch (err: any) {
+        setError(err.message || 'Registration failed. Please try again.');
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      // Login API call
+      try {
+        const response = await authAPI.login(email, password);
+        // Save token and user data
+        setToken(response.data.token);
+        setUser(response.data.user);
+        
+        // Check if user has completed onboarding (has skills set)
+        if (response.data.user.skills && response.data.user.skills.length > 0) {
+          navigate('/dashboard');
+        } else {
+          navigate('/onboarding');
+        }
+      } catch (err: any) {
+        setError(err.message || 'Login failed. Please check your credentials.');
+      } finally {
+        setIsLoading(false);
+      }
+    }
   };
 
   const toggleAuthMode = () => {
     setIsLogin(!isLogin);
     setError(null);
+    setSuccessMsg(null);
     setPassword('');
     setConfirmPassword('');
   };
@@ -119,7 +162,7 @@ const AuthPage: React.FC = () => {
               {isLogin ? 'Welcome back' : 'Create your account'}
             </h2>
             <p className="text-slate-500 dark:text-white/60 font-medium mb-8">
-              {isLogin ? 'Enter your credentials to access your network.' : 'Use your college email (.edu) to get verified.'}
+              {isLogin ? 'Enter your credentials to access your network.' : 'Use your college email (@niet.co.in) to get verified.'}
             </p>
 
             {error && (
@@ -129,11 +172,18 @@ const AuthPage: React.FC = () => {
               </motion.div>
             )}
 
+            {successMsg && (
+              <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 text-sm font-bold flex items-center gap-2">
+                 <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                 {successMsg}
+              </motion.div>
+            )}
+
             <form onSubmit={handleAuth} className="space-y-4">
               {!isLogin && (
                 <GlassInput icon={<User size={18} />} type="text" placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} required />
               )}
-              <GlassInput icon={<Mail size={18} />} type="email" placeholder="College Email (.edu)" value={email} onChange={e => setEmail(e.target.value)} required />
+              <GlassInput icon={<Mail size={18} />} type="email" placeholder={isLogin ? "College Email" : "College Email (@niet.co.in)"} value={email} onChange={e => setEmail(e.target.value)} required />
               <GlassInput icon={<Lock size={18} />} type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
               
               {!isLogin && (

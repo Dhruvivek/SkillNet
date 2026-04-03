@@ -13,6 +13,7 @@ const QuestionsPage = React.lazy(() => import('./pages/QuestionsPage.tsx'));
 const QuestionDetailPage = React.lazy(() => import('./pages/QuestionDetailPage.tsx'));
 const ChatPage = React.lazy(() => import('./pages/ChatPage.tsx'));
 const AuthPage = React.lazy(() => import('./pages/AuthPage.tsx'));
+const OTPPage = React.lazy(() => import('./pages/OTPPage.tsx'));
 const LeaderboardPage = React.lazy(() => import('./pages/LeaderboardPage.tsx'));
 const BountiesPage = React.lazy(() => import('./pages/BountiesPage.tsx'));
 
@@ -40,6 +41,7 @@ function App() {
       <React.Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/verify-otp" element={<OTPPage />} />
           
           <Route path="/" element={<AppLayout />}>
             <Route index element={<LandingPage />} />
