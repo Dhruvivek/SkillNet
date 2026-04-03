@@ -13,7 +13,6 @@ const QuestionsPage = React.lazy(() => import('./pages/QuestionsPage'));
 const QuestionDetailPage = React.lazy(() => import('./pages/QuestionDetailPage'));
 const ChatPage = React.lazy(() => import('./pages/ChatPage'));
 const AuthPage = React.lazy(() => import('./pages/AuthPage'));
-const MatchPage = React.lazy(() => import('./pages/MatchPage'));
 const LeaderboardPage = React.lazy(() => import('./pages/LeaderboardPage'));
 const BountiesPage = React.lazy(() => import('./pages/BountiesPage'));
 
@@ -51,7 +50,6 @@ function App() {
             <Route path="teams" element={<TeamFinderPage />} />
             <Route path="questions" element={<QuestionsPage />} />
             <Route path="questions/:id" element={<QuestionDetailPage />} />
-            <Route path="match" element={<MatchPage />} />
             <Route path="leaderboard" element={<LeaderboardPage />} />
             <Route path="bounties" element={<BountiesPage />} />
             <Route path="chat" element={<ChatPage />} />

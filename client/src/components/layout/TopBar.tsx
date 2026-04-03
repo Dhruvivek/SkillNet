@@ -10,7 +10,6 @@ const desktopLinks = [
   { path: '/', label: 'Home' },
   { path: '/dashboard', label: 'Dashboard' },
   { path: '/explore', label: 'Explore' },
-  { path: '/match', label: 'Match' },
   { path: '/teams', label: 'Teams' },
   { path: '/bounties', label: 'Bounties' },
   { path: '/leaderboard', label: 'Leaderboard' },
