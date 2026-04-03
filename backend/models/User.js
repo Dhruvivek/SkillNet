@@ -30,6 +30,16 @@ const userSchema = new mongoose.Schema({
   year: {
     type: Number,
     default: 1,
+    min: 1,
+    max: 5,
+  },
+  github: {
+    type: String,
+    default: '',
+  },
+  linkedin: {
+    type: String,
+    default: '',
   },
   skills: {
     type: [String],

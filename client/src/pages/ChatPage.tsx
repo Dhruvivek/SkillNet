@@ -24,7 +24,8 @@ const ChatPage: React.FC = () => {
     // Connect socket
     const token = getToken();
     if (token) {
-      const socket = io('http://localhost:5000', { query: { token } });
+  const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
+    const socket = io(SOCKET_URL, { query: { token } });
       socket.on('receive_message', (msg: any) => {
         setMessages(prev => [...prev, msg]);
       });

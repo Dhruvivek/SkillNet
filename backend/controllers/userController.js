@@ -24,7 +24,7 @@ const getProfile = async (req, res) => {
 // @route   PUT /api/users/profile
 const updateProfile = async (req, res) => {
   try {
-    const allowedFields = ['name', 'bio', 'branch', 'year', 'skills', 'interests', 'availability', 'profilePic'];
+    const allowedFields = ['name', 'bio', 'branch', 'year', 'skills', 'interests', 'availability', 'profilePic', 'github', 'linkedin'];
     const updates = {};
 
     // Only pick allowed fields from request body

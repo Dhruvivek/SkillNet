@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { GlassInput } from '../components/ui/GlassInput';
 import { LiquidButton } from '../components/ui/LiquidButton';
-import { Code2, Globe, Hash, Mail, Lock, User } from 'lucide-react';
+import { Code2, Mail, Lock, User } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { authAPI, setToken, setUser } from '../lib/api';
 
@@ -208,21 +208,6 @@ const AuthPage: React.FC = () => {
               </LiquidButton>
             </form>
 
-            <div className="mt-8 relative">
-               <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200 dark:border-white/10" /></div>
-               <div className="relative flex justify-center text-sm">
-                 <span className="px-2 bg-[var(--bg-main)] text-slate-500 dark:text-white/40 font-medium">Or continue with</span>
-               </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-4">
-              <button disabled={isLoading} className="flex items-center justify-center gap-2 h-11 px-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors font-semibold text-sm disabled:opacity-50">
-                <Hash size={18} /> GitHub
-              </button>
-              <button disabled={isLoading} className="flex items-center justify-center gap-2 h-11 px-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors font-semibold text-sm text-[#0077b5] disabled:opacity-50">
-                <Globe size={18} /> LinkedIn
-              </button>
-            </div>
 
             <p className="mt-8 text-center text-sm text-slate-500 dark:text-white/60 font-medium">
               {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
