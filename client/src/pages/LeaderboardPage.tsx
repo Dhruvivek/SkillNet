@@ -23,13 +23,13 @@ const LeaderboardPage: React.FC = () => {
 
       {/* The Podium UI */}
       {podiumOrder.length === 3 && (
-        <div className="flex justify-center items-end h-72 gap-2 sm:gap-6 mb-20 px-4">
+        <div className="flex justify-center items-end gap-2 sm:gap-6 mb-20 px-4 mt-12 sm:mt-24">
           
           {/* 2nd Place (Silver) */}
           <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="w-1/3 max-w-[200px] flex flex-col items-center">
-             <div className="relative mb-4">
-               <img src={podiumOrder[0].avatar} className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-slate-300 dark:border-white/20 shadow-xl" alt="" />
-               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-slate-200 text-slate-800 font-black text-xs px-3 py-1 rounded-full shadow-lg">2ND</div>
+             <div className="relative mb-2 sm:mb-4">
+               <img src={podiumOrder[0].avatar} className="w-16 h-16 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-slate-300 dark:border-white/20 shadow-xl" alt="" />
+               <div className="absolute -bottom-2 sm:-bottom-3 left-1/2 -translate-x-1/2 bg-slate-200 text-slate-800 font-black text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full shadow-lg">2ND</div>
              </div>
              <p className="font-bold text-center truncate w-full px-2 text-sm sm:text-base">{podiumOrder[0].name}</p>
              <p className="text-xs text-slate-500 dark:text-white/60 font-medium">{podiumOrder[0].score} pts</p>
@@ -40,10 +40,10 @@ const LeaderboardPage: React.FC = () => {
 
           {/* 1st Place (Gold) */}
           <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="w-1/3 max-w-[220px] flex flex-col items-center z-10">
-             <div className="relative mb-4">
-               <div className="absolute -top-8 left-1/2 -translate-x-1/2"><Trophy size={32} className="text-yellow-400 fill-yellow-400 drop-shadow-xl" /></div>
-               <img src={podiumOrder[1].avatar} className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-[6px] border-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.4)]" alt="" />
-               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-950 font-black text-sm px-4 py-1.5 rounded-full shadow-lg">1ST</div>
+             <div className="relative mb-2 sm:mb-4">
+               <div className="absolute -top-6 sm:-top-8 left-1/2 -translate-x-1/2"><Trophy size={24} className="sm:w-8 sm:h-8 text-yellow-400 fill-yellow-400 drop-shadow-xl" /></div>
+               <img src={podiumOrder[1].avatar} className="w-20 h-20 sm:w-32 sm:h-32 rounded-full object-cover border-4 sm:border-[6px] border-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.4)]" alt="" />
+               <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-950 font-black text-xs sm:text-sm px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-lg">1ST</div>
              </div>
              <p className="font-bold text-center truncate w-full px-2 mt-2 text-base sm:text-lg">{podiumOrder[1].name}</p>
              <p className="text-sm text-yellow-500 font-bold">{podiumOrder[1].score} pts</p>
@@ -54,9 +54,9 @@ const LeaderboardPage: React.FC = () => {
 
           {/* 3rd Place (Bronze) */}
           <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }} className="w-1/3 max-w-[200px] flex flex-col items-center">
-             <div className="relative mb-4">
-               <img src={podiumOrder[2].avatar} className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-orange-400/60 shadow-xl" alt="" />
-               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-orange-400/20 backdrop-blur-md border border-orange-400/50 text-orange-600 dark:text-orange-400 font-black text-xs px-3 py-1 rounded-full shadow-lg">3RD</div>
+             <div className="relative mb-2 sm:mb-4">
+               <img src={podiumOrder[2].avatar} className="w-16 h-16 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-orange-400/60 shadow-xl" alt="" />
+               <div className="absolute -bottom-2 sm:-bottom-3 left-1/2 -translate-x-1/2 bg-orange-400/20 backdrop-blur-md border border-orange-400/50 text-orange-600 dark:text-orange-400 font-black text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full shadow-lg">3RD</div>
              </div>
              <p className="font-bold text-center truncate w-full px-2 text-sm sm:text-base">{podiumOrder[2].name}</p>
              <p className="text-xs text-slate-500 dark:text-white/60 font-medium">{podiumOrder[2].score} pts</p>

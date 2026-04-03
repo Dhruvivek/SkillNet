@@ -13,7 +13,7 @@ export const GlassInput = React.forwardRef<HTMLInputElement, GlassInputProps>(
     return (
       <div className="w-full relative flex flex-col gap-1.5">
         {label && <label className="text-sm font-medium text-white/80 ml-1">{label}</label>}
-        <div className="relative flex items-center">
+        <div className="relative flex items-center w-full">
           {(icon || isSearch) && (
             <div className="absolute left-4 text-white/50">
               {icon || (isSearch && <Search size={18} />)}
@@ -22,7 +22,7 @@ export const GlassInput = React.forwardRef<HTMLInputElement, GlassInputProps>(
           <input
             ref={ref}
             className={cn(
-              "glass-input",
+              "glass-input w-full",
               (icon || isSearch) && "pl-11",
               className
             )}

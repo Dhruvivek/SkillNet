@@ -3,18 +3,18 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
 
 // Lazy loading pages for better performance
-const LandingPage = React.lazy(() => import('./pages/LandingPage'));
-const OnboardingPage = React.lazy(() => import('./pages/OnboardingPage'));
-const DashboardPage = React.lazy(() => import('./pages/DashboardPage'));
-const ExplorePage = React.lazy(() => import('./pages/ExplorePage'));
-const ProfilePage = React.lazy(() => import('./pages/ProfilePage'));
-const TeamFinderPage = React.lazy(() => import('./pages/TeamFinderPage'));
-const QuestionsPage = React.lazy(() => import('./pages/QuestionsPage'));
-const QuestionDetailPage = React.lazy(() => import('./pages/QuestionDetailPage'));
-const ChatPage = React.lazy(() => import('./pages/ChatPage'));
-const AuthPage = React.lazy(() => import('./pages/AuthPage'));
-const LeaderboardPage = React.lazy(() => import('./pages/LeaderboardPage'));
-const BountiesPage = React.lazy(() => import('./pages/BountiesPage'));
+const LandingPage = React.lazy(() => import('./pages/LandingPage.tsx'));
+const OnboardingPage = React.lazy(() => import('./pages/OnboardingPage.tsx'));
+const DashboardPage = React.lazy(() => import('./pages/DashboardPage.tsx'));
+const ExplorePage = React.lazy(() => import('./pages/ExplorePage.tsx'));
+const ProfilePage = React.lazy(() => import('./pages/ProfilePage.tsx'));
+const TeamFinderPage = React.lazy(() => import('./pages/TeamFinderPage.tsx'));
+const QuestionsPage = React.lazy(() => import('./pages/QuestionsPage.tsx'));
+const QuestionDetailPage = React.lazy(() => import('./pages/QuestionDetailPage.tsx'));
+const ChatPage = React.lazy(() => import('./pages/ChatPage.tsx'));
+const AuthPage = React.lazy(() => import('./pages/AuthPage.tsx'));
+const LeaderboardPage = React.lazy(() => import('./pages/LeaderboardPage.tsx'));
+const BountiesPage = React.lazy(() => import('./pages/BountiesPage.tsx'));
 
 const Loader = () => (
   <div className="h-screen w-screen flex items-center justify-center bg-bg-dark text-white">
