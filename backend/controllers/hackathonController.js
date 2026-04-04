@@ -48,6 +48,7 @@ const getAllHackathons = async (req, res) => {
       .populate('createdBy', 'name profilePic')
       .populate('members', 'name profilePic')
       .populate('invites.user', 'name profilePic')
+      .populate('applications.user', 'name profilePic')
       .sort({ createdAt: -1 });
 
     // Transform for frontend — map to Team shape
@@ -57,6 +58,10 @@ const getAllHackathons = async (req, res) => {
       const userInvite = obj.invites.find(
         inv => inv.user && inv.user._id.toString() === req.user._id.toString()
       );
+      // Check if current user applied
+      const userApplication = (obj.applications || []).find(
+        app => app.user && app.user._id.toString() === req.user._id.toString()
+      );
       return {
         ...obj,
         id: obj._id,
@@ -64,6 +69,7 @@ const getAllHackathons = async (req, res) => {
         event: obj.description,
         lookingFor: obj.requiredSkills,
         inviteStatus: userInvite ? userInvite.status : 'none',
+        applicationStatus: userApplication ? userApplication.status : 'none',
         isMember: obj.members.some(m => m._id.toString() === req.user._id.toString()),
         isCreator: obj.createdBy._id.toString() === req.user._id.toString(),
       };
@@ -236,10 +242,76 @@ const respondToInvite = async (req, res) => {
   }
 };
 
+// @desc    Apply to join a hackathon
+// @route   POST /api/hackathon/apply/:hackathonId
+const applyToHackathon = async (req, res) => {
+  try {
+    const { hackathonId } = req.params;
+    const hackathon = await Hackathon.findById(hackathonId);
+    if (!hackathon) {
+      return res.status(404).json({ success: false, message: 'Hackathon not found' });
+    }
+
+    if (hackathon.members.includes(req.user._id)) {
+      return res.status(400).json({ success: false, message: 'You are already a member' });
+    }
+
+    const existingApplication = hackathon.applications.find(
+      app => app.user.toString() === req.user._id.toString()
+    );
+    if (existingApplication) {
+      return res.status(400).json({ success: false, message: 'You have already applied' });
+    }
+
+    hackathon.applications.push({ user: req.user._id, status: 'pending' });
+    await hackathon.save();
+
+    res.status(200).json({ success: true, message: 'Application sent successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error applying', error: error.message });
+  }
+};
+
+// @desc    Respond to an application (accept/reject)
+// @route   POST /api/hackathon/respond-application/:hackathonId/:applicationId
+const respondToApplication = async (req, res) => {
+  try {
+    const { hackathonId, applicationId } = req.params;
+    const { action } = req.body;
+
+    if (!['accept', 'reject'].includes(action)) {
+      return res.status(400).json({ success: false, message: 'Action must be "accept" or "reject"' });
+    }
+
+    const hackathon = await Hackathon.findById(hackathonId);
+    if (!hackathon) return res.status(404).json({ success: false, message: 'Hackathon not found' });
+
+    if (hackathon.createdBy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ success: false, message: 'Only creator can manage applications' });
+    }
+
+    const application = hackathon.applications.id(applicationId);
+    if (!application) return res.status(404).json({ success: false, message: 'Application not found' });
+
+    application.status = action === 'accept' ? 'accepted' : 'rejected';
+
+    if (action === 'accept' && !hackathon.members.includes(application.user)) {
+      hackathon.members.push(application.user);
+    }
+    await hackathon.save();
+
+    res.status(200).json({ success: true, message: `Application ${action}ed successfully` });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error responding to application', error: error.message });
+  }
+};
+
 module.exports = {
   createHackathon,
   getAllHackathons,
   getMyHackathons,
   inviteUser,
   respondToInvite,
+  applyToHackathon,
+  respondToApplication,
 };

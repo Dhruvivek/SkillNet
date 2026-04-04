@@ -12,6 +12,7 @@ const TeamFinderPage: React.FC = () => {
   const [showCreate, setShowCreate] = useState(false);
   const [newTeam, setNewTeam] = useState({ title: '', description: '', requiredSkills: '' });
   const [creating, setCreating] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState<any | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,6 +38,16 @@ const TeamFinderPage: React.FC = () => {
       setShowCreate(false);
       loadTeams();
     } catch (err) { console.error(err); } finally { setCreating(false); }
+  };
+
+  const handleApply = async (teamId: string) => {
+    try {
+      await hackathonAPI.apply(teamId);
+      loadTeams();
+    } catch (err: any) {
+      console.error(err);
+      alert(err.message || 'Failed to apply.');
+    }
   };
 
   return (
@@ -104,7 +115,22 @@ const TeamFinderPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex flex-col justify-end">
-                    <LiquidButton variant="outline" className="w-full sm:w-auto">{team.isMember ? 'Joined' : 'Apply Now'}</LiquidButton>
+                    <LiquidButton 
+                      variant="outline" 
+                      className="w-full sm:w-auto"
+                      onClick={() => {
+                        if (team.isMember || team.applicationStatus === 'pending' || team.applicationStatus === 'accepted') {
+                          setSelectedTeam(team);
+                        } else {
+                          handleApply(team.id || team._id);
+                        }
+                      }}
+                    >
+                      {team.isMember ? 'View Team' : 
+                       team.applicationStatus === 'pending' ? 'Applied (View)' :
+                       team.applicationStatus === 'accepted' ? 'Accepted (View)' :
+                       'Apply Now'}
+                    </LiquidButton>
                   </div>
                 </div>
               </GlassCard>
@@ -112,6 +138,61 @@ const TeamFinderPage: React.FC = () => {
               <div className="text-center py-16 text-white/50 font-medium">No teams yet. Create the first one!</div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* Team Details Modal */}
+      {selectedTeam && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <GlassCard className="w-full max-w-2xl p-8 space-y-6 relative border-primary/20 shadow-2xl">
+            <button 
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white/60 hover:text-white hover:bg-white/20 transition-colors"
+              onClick={() => setSelectedTeam(null)}
+            >
+              ✕
+            </button>
+            
+            <div className="flex items-center gap-3 pr-8">
+              <h2 className="text-3xl font-extrabold text-white">{selectedTeam.name || selectedTeam.title}</h2>
+              <span className="px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded uppercase tracking-wider">
+                {selectedTeam.status === 'recruiting' ? 'HIRING' : selectedTeam.status || 'ACTIVE'}
+              </span>
+            </div>
+            
+            <div className="space-y-3 bg-white/5 p-4 rounded-xl border border-white/5">
+              <h3 className="font-semibold text-lg text-primary flex items-center gap-2"><Calendar size={18}/> Event Details</h3>
+              <p className="text-white/80 whitespace-pre-wrap leading-relaxed">{selectedTeam.event || selectedTeam.description}</p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-lg text-white mb-3">Required Skills</h3>
+              <div className="flex flex-wrap gap-2">
+                {(selectedTeam.lookingFor || selectedTeam.requiredSkills || []).map((role: string) => (
+                  <span key={role} className="text-sm bg-white/10 px-4 py-1.5 rounded-full text-white/90 border border-white/10 shadow-sm">{role}</span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg text-white mb-3 flex items-center gap-2">Team Members <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full">{(selectedTeam.members || []).length}</span></h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {(selectedTeam.members || []).map((m: any) => (
+                  <div key={m._id} className="flex items-center gap-3 bg-white/5 p-3 rounded-lg border border-white/5 hover:bg-white/10 transition-colors">
+                    <div className="w-10 h-10 rounded-full border border-white/10 bg-gradient-to-br from-primary/60 to-accent-cyan/60 flex items-center justify-center text-sm text-white font-bold shrink-0 overflow-hidden">
+                      {m.profilePic ? <img src={m.profilePic} className="w-full h-full object-cover" /> : (m.name?.[0]?.toUpperCase() || '?')}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-white truncate w-full">{m.name || 'Member'}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="pt-4 flex justify-end border-t border-white/10">
+              <LiquidButton onClick={() => setSelectedTeam(null)}>Close Window</LiquidButton>
+            </div>
+          </GlassCard>
         </div>
       )}
     </div>

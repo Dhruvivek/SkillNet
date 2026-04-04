@@ -144,6 +144,9 @@ export const hackathonAPI = {
       method: 'POST',
       body: JSON.stringify({ action }),
     }),
+
+  apply: (hackathonId: string) =>
+    request(`/hackathon/apply/${hackathonId}`, { method: 'POST' }),
 };
 
 // ========== CONNECTIONS API ==========

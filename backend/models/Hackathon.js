@@ -35,6 +35,17 @@ const hackathonSchema = new mongoose.Schema({
       default: 'pending',
     },
   }],
+  applications: [{
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'accepted', 'rejected'],
+      default: 'pending',
+    },
+  }],
   status: {
     type: String,
     enum: ['recruiting', 'full', 'in-progress', 'completed'],
