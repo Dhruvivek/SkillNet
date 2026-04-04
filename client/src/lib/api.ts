@@ -1,7 +1,7 @@
 // FILE: client/src/lib/api.ts
 // Centralized API service for all backend communication
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 // ========== Token Management ==========
 export const getToken = (): string | null => localStorage.getItem('skillnet_token');
