@@ -7,18 +7,23 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  // Prevent hanging on Render/cloud environments
+  connectionTimeout: 5000,  // 5s to establish connection
+  greetingTimeout: 5000,    // 5s for SMTP greeting
+  socketTimeout: 10000,     // 10s for socket inactivity
 });
 
 /**
- * Send OTP email to user
+ * Send OTP email — resolves true on success, false on failure (never throws)
  * @param {string} to - Recipient email
  * @param {string} otp - 6-digit OTP code
+ * @returns {Promise<boolean>}
  */
 const sendOTPEmail = async (to, otp) => {
   const mailOptions = {
     from: `"SkillNet" <${process.env.EMAIL_USER}>`,
     to,
-    subject: 'SkillNet - Email Verification OTP',
+    subject: 'SkillNet — Verify your email',
     html: `
       <div style="font-family: 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #0a0a0b; border-radius: 16px; color: #fff;">
         <h1 style="font-size: 28px; margin-bottom: 8px;">Skill<span style="color: #7c3aed;">Net</span></h1>
@@ -32,7 +37,14 @@ const sendOTPEmail = async (to, otp) => {
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`✅ OTP email sent to ${to}`);
+    return true;
+  } catch (error) {
+    console.error(`❌ Email send failed to ${to}:`, error.message);
+    return false;
+  }
 };
 
 module.exports = { transporter, sendOTPEmail };

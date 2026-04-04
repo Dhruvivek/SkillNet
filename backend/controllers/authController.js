@@ -66,14 +66,13 @@ const register = async (req, res) => {
       expiresAt,
     });
 
-    // Send OTP email
-    try {
-      await sendOTPEmail(email, otp);
-    } catch (emailError) {
-      console.error('Email send failed:', emailError.message);
-    }
+    // Send OTP email — fire and forget, do NOT await
+    // This prevents the request from hanging if SMTP is slow/unavailable
+    sendOTPEmail(email, otp).then(sent => {
+      if (!sent) console.warn(`⚠️  OTP email failed for ${email} — OTP: ${otp}`);
+    });
 
-    // Log OTP to console in dev mode (since email may not be configured)
+    // Always log to console for dev/debug
     console.log(`\n📧 OTP for ${email}: ${otp}\n`);
 
     res.status(201).json({
