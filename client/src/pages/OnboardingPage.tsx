@@ -23,7 +23,7 @@ const OnboardingPage: React.FC = () => {
     setIsLoading(true);
     
     try {
-      const response = await userAPI.updateProfile({ skills: selected });
+      await userAPI.updateProfile({ skills: selected });
       // Update stored user data
       const currentUser = getUser();
       if (currentUser) {
