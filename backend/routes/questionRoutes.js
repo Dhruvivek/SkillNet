@@ -26,10 +26,10 @@ router.get('/:id', getQuestionById);
 // POST /api/questions/:id/answer
 router.post('/:id/answer', addAnswer);
 
+// POST /api/questions/answers/:id/upvote — MUST be before /:id/upvote
+router.post('/answers/:id/upvote', upvoteAnswer);
+
 // POST /api/questions/:id/upvote
 router.post('/:id/upvote', upvoteQuestion);
-
-// POST /api/answers/:id/upvote — mounted here but path uses 'answers' prefix
-router.post('/answers/:id/upvote', upvoteAnswer);
 
 module.exports = router;
